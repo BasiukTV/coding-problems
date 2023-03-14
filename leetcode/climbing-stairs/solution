@@ -1,0 +1,25 @@
+/**
+ * Solution for the https://leetcode.com/problems/climbing-stairs/
+ *
+ * @author Taras Basiuk
+ *
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function(n) {
+
+    // If our cache doesn't already know how many way to get to/from step n...
+    if (!cache.has(n)) {
+        // ... it's the sum of ways of getting to step n - 1 and n - 2.
+        cache.set(n, climbStairs(n - 1) + climbStairs(n - 2));
+    }
+
+    return cache.get(n); // Return the value for from the cache
+};
+
+/**
+ * If we end up on the last step - there's one way to get there (be there).
+ * We also add the invalid -1 step with zero ways to get there in favor of 
+ * checking for the valid step range insisde the recursion.
+ */
+var cache = new Map([[0, 1], [-1, 0]]);
